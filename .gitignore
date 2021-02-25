@@ -1,0 +1,5 @@
+docker-compose.config.yml
+docker-compose.override.yml
+.env
+id_rsa
+id_rsa.pub
