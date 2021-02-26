@@ -2,7 +2,7 @@
 
 cd "$(basename "$(dirname "$0")")" || exit 1
 
-source .env
+source .env || exit 1
 
 function render_template() {
   eval "echo \"$(cat $1)\""
