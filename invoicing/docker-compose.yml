@@ -1,11 +1,5 @@
 version: '3.2'
 
-# Odoo Container
-
-#arn:aws:secretsmanager:eu-west-2:136182278273:secret:gpit-odoo-image-L9I2RP
-
-# .env contains all the container specific details
-
 services:
   odoo:
     &odoo
@@ -19,7 +13,7 @@ services:
     environment:
       USER: "${ODOO_POSTGRES_USER}"
       PASSWORD: "${ODOO_POSTGRES_PASSWORD}"
-      HOST: ${DB_HOST}
+      HOST: ${DB_HOST:-db}
     command: --max-cron-threads 0 --workers 8 --log-handler=:INFO
     restart: unless-stopped
     logging:
