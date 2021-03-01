@@ -44,7 +44,7 @@ chmod +x /usr/local/bin/docker-compose
 
 ### END Docker install
 
-SCRIPT_PATH=$(basename "$(dirname "$0")")
+SCRIPT_PATH=$(dirname "$0")
 
 cd ${SCRIPT_PATH} || exit 1
 
@@ -75,7 +75,7 @@ gpasswd -a ubuntu docker
 
 # Start syslog - if you use tcp then this MUST be running or the Odoo container wont start
 
-cd ../syslog-ng || exit 1
+cd ${SCRIPT_PATH}/../syslog-ng || exit 1
 
 ln -s ../invoicing/.env .env
 
@@ -85,7 +85,7 @@ docker-compose up -d
 
 # Start Odoo
 
-cd ../invoicing || exit 1
+cd ${SCRIPT_PATH} || exit 1
 
 docker-compose pull
 
