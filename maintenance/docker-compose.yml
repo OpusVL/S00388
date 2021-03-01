@@ -1,0 +1,8 @@
+version: '3.2'
+
+services:
+  maintenance:
+    build: build
+    ports:
+    - "8069:8080"
+    - "8070:8080"
