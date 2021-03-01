@@ -48,7 +48,7 @@ fi
 
 SCRIPT_PATH=/srv/container-deployments
 
-cd ${SCRIPT_PATH/invoicing} || exit 1
+cd ${SCRIPT_PATH}/invoicing || exit 1
 
 source .env || exit 1
 
