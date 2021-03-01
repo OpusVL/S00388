@@ -7,6 +7,7 @@ if [[ "${EUID}" -ne 0 ]]; then
   exit 1
 fi
 
+if [[ 1 -ne 1 ]]; then
 # START Docker install
 # Install from the oficial docker repository and remove the existing
 
@@ -43,10 +44,11 @@ curl -L "https://github.com/docker/compose/releases/download/1.28.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 ### END Docker install
+fi
 
 SCRIPT_PATH=/srv/container-deployments
 
-cd ${SCRIPT_PATH} || exit 1
+cd ${SCRIPT_PATH/invoicing} || exit 1
 
 source .env || exit 1
 
