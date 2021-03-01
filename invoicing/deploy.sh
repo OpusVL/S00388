@@ -26,6 +26,8 @@ chmod u+rw,g-rwx,o-rwx ~/.docker
 sudo gpasswd -a ${USER} docker
 newgrp docker
 
+echo ${DIR}
+
 cd ${DIR}/syslog-ng || exit 1
 
 docker-compose run --rm -u root syslog chown root: /etc/logrotate.d/ -R
