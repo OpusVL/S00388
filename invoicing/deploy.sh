@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# NOTE: This should run as the root user as when AWS starts the AMI it runs as root
+
 DIR=$(basename "$(dirname "$0")")
 
 cd ${DIR} || exit 1
@@ -10,8 +12,8 @@ function render_template() {
   eval "echo \"$(cat $1)\""
 }
 
-sudo chown ${USER} ${DIR} -R
-sudo chgrp docker ${DIR} -R
+chown ../ ${DIR} -R
+chgrp docker ../ -R
 
 render_template odoo.conf.tpl > ./odoo/etc/odoo.conf
 
@@ -21,22 +23,19 @@ chmod u+rw,g-rwx,o-rwx ~/.docker
 
 # echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_LOGIN}" --password-stdin ${ODOO_IMAGE}
 
-# Add the user to the docker group and refresh/activate it
+# Add the user to the docker group
 
-sudo gpasswd -a ${USER} docker
-newgrp docker
+gpasswd -a ${USER} docker
 
-echo ${DIR}
-
-cd ${DIR}/syslog-ng || exit 1
+cd ../syslog-ng || exit 1
 
 docker-compose run --rm -u root syslog chown root: /etc/logrotate.d/ -R
 
-ln -s ${DIR}/invoicing/.env .env
+ln -s ../invoicing/.env .env
 
 docker-compose up -d
 
-cd ${DIR}/invoicing || exit 1
+cd ../invoicing || exit 1
 
 docker-compose pull
 
