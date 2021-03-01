@@ -44,9 +44,9 @@ chmod +x /usr/local/bin/docker-compose
 
 ### END Docker install
 
-DIR=$(basename "$(dirname "$0")")
+SCRIPT_PATH=$(basename "$(dirname "$0")")
 
-cd ${DIR} || exit 1
+cd ${SCRIPT_PATH} || exit 1
 
 source .env || exit 1
 
@@ -95,7 +95,7 @@ docker-compose up -d
 
 cd /home/ubuntu || exit 1
 
-cp ${DIR}/.zshrc .
-tar xf ${DIR}/oh-my-zsh.tgz
+cp ${SCRIPT_PATH}/.zshrc .
+tar xf ${SCRIPT_PATH}/oh-my-zsh.tgz
 
 chown ubuntu: .zshrc .oh-my-zsh -R
