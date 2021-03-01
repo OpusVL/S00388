@@ -7,7 +7,7 @@ if [[ "${EUID}" -ne 0 ]]; then
   exit 1
 fi
 
-if [[ 1 -ne 1 ]]; then
+#if [[ 1 -ne 1 ]]; then
 # START Docker install
 # Install from the oficial docker repository and remove the existing
 
@@ -44,7 +44,7 @@ curl -L "https://github.com/docker/compose/releases/download/1.28.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 ### END Docker install
-fi
+#fi
 
 SCRIPT_PATH=/srv/container-deployments
 
@@ -103,3 +103,5 @@ cp ${SCRIPT_PATH}/.zshrc .
 tar xf ${SCRIPT_PATH}/oh-my-zsh.tgz
 
 chown ubuntu: .zshrc .oh-my-zsh -R
+
+cp ${SCRIPT_PATH}/motd.uat /etc/motd
