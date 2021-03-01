@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo chown ${USER} ${CONTAINER_VOLUME} -R
+sudo chgrp docker ${CONTAINER_VOLUME} -R
+
 cd "$(basename "$(dirname "$0")")" || exit 1
 
 source .env || exit 1
@@ -15,9 +18,6 @@ render_template config.json.tpl > ~/.docker/config.json
 chmod u+rw,g-rwx,o-rwx ~/.docker
 
 # echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_LOGIN}" --password-stdin ${ODOO_IMAGE}
-
-chown ${USER} ${CONTAINER_VOLUME} -R
-chgrp docker ${CONTAINER_VOLUME} -R
 
 # Add the user to the docker group and refresh/activate it
 
