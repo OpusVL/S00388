@@ -2,6 +2,48 @@
 
 # NOTE: This should run as the root user as when AWS starts the AMI it runs as root
 
+if [[ "${EUID}" -ne 0 ]]; then
+  echo "This must be run as root"
+  exit 1
+fi
+
+# START Docker install
+# Install from the oficial docker repository and remove the existing
+
+systemctl stop docker.service docker.socket
+
+apt-get purge -y docker-ce docker-ce-cli containerd.io
+
+apt-get update
+
+apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common \
+    zsh
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+apt-get update
+apt-get -y install docker-ce docker-ce-cli containerd.io
+
+systemctl stop docker.service docker.socket
+
+systemctl start docker
+
+curl -L "https://github.com/docker/compose/releases/download/1.28.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+chmod +x /usr/local/bin/docker-compose
+
+### END Docker install
+
 DIR=$(basename "$(dirname "$0")")
 
 cd ${DIR} || exit 1
