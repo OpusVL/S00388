@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cd "$(basename "$(dirname "$0")")" || exit 1
+DIR=$(basename "$(dirname "$0")")
+
+cd ${DIR} || exit 1
 
 source .env || exit 1
 
@@ -8,8 +10,8 @@ function render_template() {
   eval "echo \"$(cat $1)\""
 }
 
-sudo chown ${USER} ${CONTAINER_VOLUME} -R
-sudo chgrp docker ${CONTAINER_VOLUME} -R
+sudo chown ${USER} ${DIR} -R
+sudo chgrp docker ${DIR} -R
 
 render_template odoo.conf.tpl > ./odoo/etc/odoo.conf
 
@@ -24,15 +26,15 @@ chmod u+rw,g-rwx,o-rwx ~/.docker
 sudo gpasswd -a ${USER} docker
 newgrp docker
 
-cd ${CONTAINER_VOLUME}/syslog-ng || exit 1
+cd ${DIR}/syslog-ng || exit 1
 
 docker-compose run --rm -u root syslog chown root: /etc/logrotate.d/ -R
 
-ln -s ${CONTAINER_VOLUME}/invoicing/.env .env
+ln -s ${DIR}/invoicing/.env .env
 
 docker-compose up -d
 
-cd ${CONTAINER_VOLUME}/invoicing || exit 1
+cd ${DIR}/invoicing || exit 1
 
 docker-compose pull
 
