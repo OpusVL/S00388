@@ -14,6 +14,7 @@ services:
       USER: "${ODOO_POSTGRES_USER}"
       PASSWORD: "${ODOO_POSTGRES_PASSWORD}"
       HOST: ${DB_HOST:-db}
+      DB_HOST: ${DB_HOST:-db}
     command: --max-cron-threads 0 --workers 8 --log-handler=:INFO
     restart: unless-stopped
     logging:
