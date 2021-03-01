@@ -13,7 +13,7 @@ docker-compose run --rm odoo -u ${ODOO_MODULES:-all} --stop-after-init
 
 cd ../maintenance || exit 1
 
-docker-compose up -d
+docker-compose down
 
 cd ../invoicing || exit 1
 
