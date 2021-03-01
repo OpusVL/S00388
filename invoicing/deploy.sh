@@ -1,8 +1,5 @@
 #!/bin/bash
 
-sudo chown ${USER} ${CONTAINER_VOLUME} -R
-sudo chgrp docker ${CONTAINER_VOLUME} -R
-
 cd "$(basename "$(dirname "$0")")" || exit 1
 
 source .env || exit 1
@@ -10,6 +7,9 @@ source .env || exit 1
 function render_template() {
   eval "echo \"$(cat $1)\""
 }
+
+sudo chown ${USER} ${CONTAINER_VOLUME} -R
+sudo chgrp docker ${CONTAINER_VOLUME} -R
 
 render_template odoo.conf.tpl > ./odoo/etc/odoo.conf
 
