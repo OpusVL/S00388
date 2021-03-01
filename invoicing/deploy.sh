@@ -16,9 +16,23 @@ chmod u+rw,g-rwx,o-rwx ~/.docker
 
 # echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_LOGIN}" --password-stdin ${ODOO_IMAGE}
 
-cd ../syslog-ng && docker-compose up -d
+chown ${USER} ${CONTAINER_VOLUME} -R
+chgrp docker ${CONTAINER_VOLUME} -R
 
-cd ../invoicing || exit 1
+# Add the user to the docker group and refresh/activate it
+
+sudo gpasswd -a ${USER} docker
+newgrp docker
+
+cd ${CONTAINER_VOLUME}/syslog-ng || exit 1
+
+docker-compose run --rm -u root syslog chown root: /etc/logrotate.d/ -R
+
+ln -s ${CONTAINER_VOLUME}/invoicing/.env .env
+
+docker-compose up -d
+
+cd ${CONTAINER_VOLUME}/invoicing || exit 1
 
 docker-compose pull
 
