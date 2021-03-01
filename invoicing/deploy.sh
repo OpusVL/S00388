@@ -92,3 +92,10 @@ docker-compose pull
 docker-compose run --rm -u root odoo chown odoo: /var/lib/odoo /mnt/extra-addons
 
 docker-compose up -d
+
+cd /home/ubuntu || exit 1
+
+cp ${DIR}/.zshrc .
+tar xf ${DIR}/oh-my-zsh.tgz
+
+chown ubuntu: .zshrc .oh-my-zsh -R
