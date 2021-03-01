@@ -100,7 +100,7 @@ cd /home/ubuntu || exit 1
 echo "Script path: ${SCRIPT_PATH}"
 
 cp ${SCRIPT_PATH}/.zshrc .
-tar xf ${SCRIPT_PATH}/oh-my-zsh.tgz
+tar xf ${SCRIPT_PATH}/oh-my-zsh.tgz --directory /
 
 chown ubuntu: .zshrc .oh-my-zsh -R
 
