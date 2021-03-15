@@ -75,16 +75,6 @@ chmod u+rw,g-rwx,o-rwx ~/.docker
 
 gpasswd -a ubuntu docker
 
-# Start syslog - if you use tcp then this MUST be running or the Odoo container wont start
-
-cd ${SCRIPT_PATH}/syslog-ng || exit 1
-
-ln -s ../invoicing/.env .env
-
-docker-compose run --rm -u root syslog chown root: /etc/logrotate.d/ -R
-
-docker-compose up -d
-
 # Start Odoo
 
 cd ${SCRIPT_PATH}/invoicing || exit 1

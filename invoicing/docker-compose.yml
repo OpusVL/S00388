@@ -18,10 +18,10 @@ services:
     command: --max-cron-threads 0 --workers 8 --log-handler=:INFO
     restart: unless-stopped
     logging:
-      driver: 'syslog'
+      driver: 'awslogs'
       options:
-        syslog-address: 'udp://127.0.0.1:514'
-        tag: 'odoo'
+        awslogs-region: 'eu-west-2'
+        awslogs-group: '/srv/logs/odoo.log'
 
   odoo-cron:
     << : *odoo
@@ -29,7 +29,7 @@ services:
     - "8072"
     command: --max-cron-threads 8 --no-xmlrpc --database ${ODOO_CRON_DB}
     logging:
-      driver: 'syslog'
+      driver: 'awslogs'
       options:
-        syslog-address: 'udp://127.0.0.1:514'
-        tag: 'odoo-cron'
+        awslogs-region: 'eu-west-2'
+        awslogs-group: '/srv/logs/odoo-cron.log'
