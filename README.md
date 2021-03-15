@@ -22,4 +22,4 @@ Docker container set using docker-compose to provide an instance of Odoo from th
 
 ## Change Log
 
-2021-03-15 Removed syslong-ng and move to direct logging to cloudwatch
+2021-03-15 Removed syslog-ng and move to direct logging to cloudwatch
